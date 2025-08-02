@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC-Konfigurator (2020–2024)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .component { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; }
+        #compatibility { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .error { background: #ffdddd; border-left: 4px solid #f44336; }
+        .success { background: #ddffdd; border-left: 4px solid #4CAF50; }
+    </style>
+</head>
+<body>
+    <h1>PC-Konfigurator (2020–2024)</h1>
+    <div class="component">
+        <h3>CPU</h3>
+        <select id="cpu" onchange="checkCompatibility()">
+            <option value="">-- Wähle eine CPU --</option>
+            <option value="i9-13900k">Intel Core i9-13900K (LGA 1700)</option>
+            <option value="r7-7800x3d">AMD Ryzen 7 7800X3D (AM5)</option>
+            <option value="i7-10700k">Intel Core i7-10700K (LGA 1200)</option>
+            <option value="r5-5600x">AMD Ryzen 5 5600X (AM4)</option>
+        </select>
+    </div>
+
+    <div class="component">
+        <h3>Mainboard</h3>
+        <select id="mainboard" onchange="checkCompatibility()">
+            <option value="">-- Wähle ein Mainboard --</option>
+            <option value="z790">ASUS Z790 (LGA 1700, ATX, DDR5)</option>
+            <option value="b650">MSI B650 (AM5, ATX, DDR5)</option>
+            <option value="z490">Gigabyte Z490 (LGA 1200, ATX, DDR4)</option>
+            <option value="b550">ASRock B550 (AM4, Micro-ATX, DDR4)</option>
+        </select>
+    </div>
+
+    <div class="component">
+        <h3>RAM</h3>
+        <select id="ram" onchange="checkCompatibility()">
+            <option value="">-- Wähle RAM --</option>
+            <option value="ddr5-32gb">32GB DDR5-6000</option>
+            <option value="ddr4-16gb">16GB DDR4-3200</option>
+        </select>
+    </div>
+
+    <div class="component">
+        <h3>Gehäuse</h3>
+        <select id="case" onchange="checkCompatibility()">
+            <option value="">-- Wähle ein Gehäuse --</option>
+            <option value="atx-mid">Corsair 4000D (ATX, 360mm Radiator)</option>
+            <option value="matx">Fractal Design Meshify C (Micro-ATX, 240mm Radiator)</option>
+        </select>
+    </div>
+
+    <div class="component">
+        <h3>Kühler</h3>
+        <select id="cooler" onchange="checkCompatibility()">
+            <option value="">-- Wähle einen Kühler --</option>
+            <option value="aio-360mm">Arctic Liquid Freezer II 360mm</option>
+            <option value="aio-240mm">NZXT Kraken X53 240mm</option>
+            <option value="air-cooler">Noctua NH-D15 (Luftkühler)</option>
+        </select>
+    </div>
+
+    <div id="compatibility"></div>
+
+    <script>
+        // Datenbank mit Kompatibilitätsregeln
+        const components = {
+            cpu: {
+                "i9-13900k": { socket: "LGA 1700", ram: "DDR5" },
+                "r7-7800x3d": { socket: "AM5", ram: "DDR5" },
+                "i7-10700k": { socket: "LGA 1200", ram: "DDR4" },
+                "r5-5600x": { socket: "AM4", ram: "DDR4" }
+            },
+            mainboard: {
+                "z790": { socket: "LGA 1700", formfactor: "ATX", ram: "DDR5" },
+                "b650": { socket: "AM5", formfactor: "ATX", ram: "DDR5" },
+                "z490": { socket: "LGA 1200", formfactor: "ATX", ram: "DDR4" },
+                "b550": { socket: "AM4", formfactor: "Micro-ATX", ram: "DDR4" }
+            },
+            ram: {
+                "ddr5-32gb": { type: "DDR5" },
+                "ddr4-16gb": { type: "DDR4" }
+            },
+            case: {
+                "atx-mid": { formfactor: "ATX", radiator: "360mm" },
+                "matx": { formfactor: "Micro-ATX", radiator: "240mm" }
+            },
+            cooler: {
+                "aio-360mm": { type: "AIO", radiator: "360mm", sockets: ["LGA 1700", "AM5"] },
+                "aio-240mm": { type: "AIO", radiator: "240mm", sockets: ["LGA 1700", "AM5", "LGA 1200", "AM4"] },
+                "air-cooler": { type: "Air", sockets: ["LGA 1700", "AM5", "LGA 1200", "AM4"] }
+            }
+        };
+
+        function checkCompatibility() {
+            const cpu = document.getElementById("cpu").value;
+            const mainboard = document.getElementById("mainboard").value;
+            const ram = document.getElementById("ram").value;
+            const case_ = document.getElementById("case").value;
+            const cooler = document.getElementById("cooler").value;
+
+            let errors = [];
+
+            // CPU + Mainboard (Sockel)
+            if (cpu && mainboard && components.cpu[cpu].socket !== components.mainboard[mainboard].socket) {
+                errors.push(`❌ CPU (${components.cpu[cpu].socket}) und Mainboard (${components.mainboard[mainboard].socket}) sind nicht kompatibel!`);
+            }
+
+            // RAM + Mainboard (DDR-Typ)
+            if (ram && mainboard && components.ram[ram].type !== components.mainboard[mainboard].ram) {
+                errors.push(`❌ RAM (${components.ram[ram].type}) und Mainboard (${components.mainboard[mainboard].ram}) sind nicht kompatibel!`);
+            }
+
+            // Mainboard + Gehäuse (Formfaktor)
+            if (mainboard && case_ && components.mainboard[mainboard].formfactor !== components.case[case_].formfactor) {
+                if (components.mainboard[mainboard].formfactor === "Micro-ATX" && components.case[case_].formfactor === "ATX") {
+                    // Micro-ATX passt in ATX-Gehäuse
+                } else {
+                    errors.push(`❌ Mainboard (${components.mainboard[mainboard].formfactor}) passt nicht ins Gehäuse (${components.case[case_].formfactor})!`);
+                }
+            }
+
+            // Kühler + CPU (Sockel)
+            if (cooler && cpu && !components.cooler[cooler].sockets.includes(components.cpu[cpu].socket)) {
+                errors.push(`❌ Kühler unterstützt nicht den CPU-Sockel (${components.cpu[cpu].socket})!`);
+            }
+
+            // Kühler + Gehäuse (Radiator-Größe)
+            if (cooler && case_ && components.cooler[cooler].type === "AIO" && 
+                components.cooler[cooler].radiator > components.case[case_].radiator) {
+                errors.push(`❌ Radiator (${components.cooler[cooler].radiator}) passt nicht ins Gehäuse (max. ${components.case[case_].radiator})!`);
+            }
+
+            // Ausgabe
+            const output = document.getElementById("compatibility");
+            if (errors.length > 0) {
+                output.innerHTML = "<h3>⚠️ Kompatibilitätsprobleme:</h3><ul>" + errors.map(e => `<li>${e}</li>`).join("") + "</ul>";
+                output.className = "error";
+            } else if (cpu || mainboard || ram || case_ || cooler) {
+                output.innerHTML = "<h3>✅ Alles kompatibel!</h3>";
+                output.className = "success";
+            } else {
+                output.innerHTML = "";
+                output.className = "";
+            }
+        }
+    </script>
+</body>
+</html>
