@@ -1,155 +1,1655 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC-Konfigurator (2020–2024)</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .component { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
-        select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; }
-        #compatibility { margin-top: 20px; padding: 15px; border-radius: 5px; }
-        .error { background: #ffdddd; border-left: 4px solid #f44336; }
-        .success { background: #ddffdd; border-left: 4px solid #4CAF50; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELITE GAMING SCHWEIZ - Hochleistungs-Gaming-PCs nach Maß. Konfiguriere deinen Traum-PC oder wähle eines unserer Premium-Systeme.">
+  <title>ELITE GAMING SCHWEIZ | Premium Gaming PCs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --card-bg: #1e293b;
+      --success: #22c55e;
+      --warning: #f97316;
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--light);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      color: var(--primary);
+      font-size: 1.75rem;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-link {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-link i {
+      font-size: 1rem;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .mobile-menu {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem 0;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9)), 
+                  url('https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      height: 50vh;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .hero-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      background: linear-gradient(to right, var(--light), var(--gray));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      color: var(--gray);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), transparent);
+      border-radius: 2px;
+    }
+
+    /* PC Grid */
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .pc-card {
+      background: var(--card-bg);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
+
+    .pc-image-container {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .pc-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background-color: #0f172a;
+    }
+
+    .pc-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .pc-content {
+      padding: 1rem;
+    }
+
+    .pc-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: white;
+    }
+
+    .pc-specs {
+      margin: 1rem 0;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .spec-icon {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .pc-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .pc-price::after {
+      content: " CHF";
+      font-size: 0.8em;
+    }
+
+    .pc-actions {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    /* Configurator - NEUER STIL */
+    .configurator {
+      background: var(--card-bg);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 3rem 0;
+      box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .config-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .component-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.2rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      max-width: 320px;
+      transition: all 0.3s ease;
+    }
+
+    .component-box:hover {
+      border-color: var(--primary);
+    }
+
+    .component-box h3 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .component-box h3 i {
+      color: var(--primary);
+    }
+
+    .component-box select {
+      width: 100%;
+      padding: 0.75rem 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.4rem;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .component-box select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+    }
+
+    .config-summary {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.2rem;
+      border-radius: 0.4rem;
+      margin-top: 1.5rem;
+      border-left: 3px solid var(--primary);
+      width: 100%;
+    }
+
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-top: 0.8rem;
+      text-align: right;
+    }
+
+    #result {
+      padding: 1rem;
+      border-radius: 0.4rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .compatible {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border-left: 3px solid #22c55e;
+    }
+
+    .incompatible {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border-left: 3px solid #ef4444;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: white;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      margin: 3rem 0;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      position: relative;
+    }
+
+    .testimonial-quote {
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      color: white;
+      font-size: 0.95rem;
+    }
+
+    .author-info p {
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 3rem 0;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.75rem 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--darker);
+      padding: 3rem 2rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--light);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 1rem;
+    }
+
+    .footer-about p {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .social-link {
+      color: var(--gray);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .footer-links h3::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links i {
+      font-size: 0.75rem;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-contact i {
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .pc-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 1rem;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        height: auto;
+        padding: 4rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pc-actions {
+        flex-direction: column;
+      }
+
+      .component-box {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .pc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>PC-Konfigurator (2020–2024)</h1>
-    <div class="component">
-        <h3>CPU</h3>
-        <select id="cpu" onchange="checkCompatibility()">
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <i class="fas fa-gamepad logo-icon"></i>
+        ELITE GAMING
+      </a>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav>
+        <a href="#" class="nav-link active"><i class="fas fa-home"></i> Startseite</a>
+        <a href="#configurator" class="nav-link"><i class="fas fa-sliders-h"></i> Konfigurator</a>
+        <a href="#pcs" class="nav-link"><i class="fas fa-desktop"></i> Gaming PCs</a>
+        <a href="#features" class="nav-link"><i class="fas fa-star"></i> Vorteile</a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Kontakt</a>
+        <a href="#" class="cta-button">
+          <i class="fas fa-shopping-cart"></i> Zum Shop
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" class="nav-link active"><i class="fas fa-home"></i> Startseite</a>
+    <a href="#configurator" class="nav-link"><i class="fas fa-sliders-h"></i> Konfigurator</a>
+    <a href="#pcs" class="nav-link"><i class="fas fa-desktop"></i> Gaming PCs</a>
+    <a href="#features" class="nav-link"><i class="fas fa-star"></i> Vorteile</a>
+    <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Kontakt</a>
+    <a href="#" class="cta-button" style="justify-content: center; margin-top: 0.5rem;">
+      <i class="fas fa-shopping-cart"></i> Zum Shop
+    </a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Dein perfekter Gaming PC aus der Schweiz</h1>
+      <p>Hochleistungs-Systeme maßgeschneidert für deine Bedürfnisse. 100% Schweizer Qualität mit Premium-Komponenten.</p>
+      <div class="hero-actions">
+        <a href="#configurator" class="cta-button">
+          <i class="fas fa-sliders-h"></i> PC konfigurieren
+        </a>
+        <a href="#pcs" class="cta-button" style="background: transparent; border: 2px solid var(--primary);">
+          <i class="fas fa-eye"></i> Systeme entdecken
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Gaming PCs Section -->
+    <section id="pcs">
+      <h2 class="section-title">Unsere Gaming PC Kollektion</h2>
+      <p style="max-width: 800px; margin-bottom: 1.5rem; color: var(--gray); font-size: 0.95rem;">
+        Wähle aus unseren sorgfältig zusammengestellten High-End Gaming Systemen oder konfiguriere deinen individuellen Traum-PC.
+      </p>
+      
+      <div class="pc-grid">
+        <!-- PC 1 - 1000FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745765489/Screenshot_2025-04-27_165101_bni4op.png" alt="1000FR Edition Gaming PC" class="pc-image">
+            <span class="pc-badge">Bestseller</span>
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1000FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 5600</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>8GB AMD Radeon RX 7600</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>16GB DDR4 3600MHz</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,000</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PC 2 - 1150FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745252560/Corsair_iCUE_5000D_RGB_AIRFLOW__Tower_Geh_use_1879181_cm2x6i.jpg" alt="1150FR Edition Gaming PC" class="pc-image">
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1150FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 5600</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>8GB NVIDIA RTX4060</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>16GB DDR4 3600MHz</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,150</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PC 3 - 1350FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745260421/Lian_Li_O11_Vision_Compact_f9gmob.jpg" alt="1350FR Edition Gaming PC" class="pc-image">
+            <span class="pc-badge">Neu</span>
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1350FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB NVIDIA RTX5060Ti</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,350</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 4 - 1500FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745765701/Screenshot_2025-04-27_165444_fmejcu.png" alt="1500FR Edition Gaming PC" class="pc-image">
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1500FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB AMD RADEON RX 7800XT</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,500</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 5 - 1700FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745765232/Screenshot_2025-04-27_164620_zonrxg.png" alt="1700FR Edition Gaming PC" class="pc-image">
+            <span class="pc-badge"></span>
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1700FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB AMD RADEON RX 7800XT WEIß</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,700</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 6 - 1900FR Edition Weiss -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745764430/Screenshot_2025-04-27_163315_qu06rs.png" alt="1900FR Edition Weiss Gaming PC" class="pc-image">
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">1900FR EDITION WEISS</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB AMD RADEON RX 7800XT WEIß</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB WD Blue SN580</span>
+              </div>
+            </div>
+            <div class="pc-price">1,900</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 7 - 2100FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745260421/Lian_Li_O11_Vision_Compact_f9gmob.jpg" alt="2100FR Edition Gaming PC" class="pc-image">
+            <span class="pc-badge">Premium</span>
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">2100FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB AMD RADEON RX 9070</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB Kingston KC3000</span>
+              </div>
+            </div>
+            <div class="pc-price">2,100</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 8 - 2200FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745252560/Corsair_iCUE_5000D_RGB_AIRFLOW__Tower_Geh_use_1879181_cm2x6i.jpg" alt="2200FR Edition Gaming PC" class="pc-image">
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">2200FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 5 7500F</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB AMD RADEON RX 9070</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>1TB Kingston KC3000</span>
+              </div>
+            </div>
+            <div class="pc-price">2,200</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 9 - 2400FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745260421/Lian_Li_O11_Vision_Compact_f9gmob.jpg" alt="2400FR Edition Gaming PC" class="pc-image">
+            <span class="pc-badge">Top-Performer</span>
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">2400FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 7 7800X3D</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB NVIDIA RTX5070Ti</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>2TB Lexar NM790</span>
+              </div>
+            </div>
+            <div class="pc-price">2,400</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PC 10 - 2600FR Edition -->
+        <div class="pc-card">
+          <div class="pc-image-container">
+            <img src="https://res.cloudinary.com/dajusgncz/image/upload/v1745252560/Corsair_iCUE_5000D_RGB_AIRFLOW__Tower_Geh_use_1879181_cm2x6i.jpg" alt="2600FR Edition Gaming PC" class="pc-image">
+          </div>
+          <div class="pc-content">
+            <h3 class="pc-title">2600FR EDITION</h3>
+            <div class="pc-specs">
+              <div class="spec-item">
+                <i class="fas fa-microchip spec-icon"></i>
+                <span>AMD Ryzen 7 9800X3D</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-gamepad spec-icon"></i>
+                <span>16GB NVIDIA RTX5080</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-memory spec-icon"></i>
+                <span>32GB DDR5 6000MHz RGB</span>
+              </div>
+              <div class="spec-item">
+                <i class="fas fa-hdd spec-icon"></i>
+                <span>2TB Lexar NM790</span>
+              </div>
+            </div>
+            <div class="pc-price">2,600</div>
+            <div class="pc-actions">
+              <a href="#" class="cta-button" style="flex-grow: 1;">
+                <i class="fas fa-shopping-cart"></i> Kaufen
+              </a>
+              <a href="#configurator" class="cta-button" style="background: transparent; border: 2px solid var(--primary); flex-grow: 1;">
+                <i class="fas fa-cog"></i> Anpassen
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Configurator Section - NEUE VERSION -->
+    <section class="configurator" id="configurator">
+      <h2 class="section-title">PC Konfigurator</h2>
+      <p style="max-width: 800px; margin-bottom: 1.5rem; color: var(--gray); font-size: 0.95rem;">
+        Stelle deinen individuellen Gaming PC zusammen. Wähle aus hochwertigen Komponenten und erhalte eine sofortige Preisberechnung.
+      </p>
+      
+      <div class="config-container">
+        <!-- CPU Auswahl (Startpunkt) -->
+        <div class="component-box">
+          <h3><i class="fas fa-microchip"></i> 1. CPU wählen</h3>
+          <select id="cpu" onchange="filterMainboards()">
             <option value="">-- Wähle eine CPU --</option>
-            <option value="i9-13900k">Intel Core i9-13900K (LGA 1700)</option>
-            <option value="r7-7800x3d">AMD Ryzen 7 7800X3D (AM5)</option>
-            <option value="i7-10700k">Intel Core i7-10700K (LGA 1200)</option>
-            <option value="r5-5600x">AMD Ryzen 5 5600X (AM4)</option>
-        </select>
-    </div>
+            <!-- Intel LGA1700 CPUs -->
+            <optgroup label="Intel LGA1700">
+              <option value="i9_14900k">Intel Core i9-14900K</option>
+              <option value="i7_14700k">Intel Core i7-14700K</option>
+              <option value="i5_13600k">Intel Core i5-13600K</option>
+            </optgroup>
+            <!-- Intel LGA1851 CPUs -->
+            <optgroup label="Intel LGA1851">
+              <option value="ultra9_285k">Intel Core Ultra 9 285K</option>
+              <option value="ultra7_265k">Intel Core Ultra 7 265K</option>
+            </optgroup>
+            <!-- AMD AM5 CPUs -->
+            <optgroup label="AMD AM5">
+              <option value="r9_7950x">AMD Ryzen 9 7950X</option>
+              <option value="r7_7800x3d">AMD Ryzen 7 7800X3D</option>
+              <option value="r5_7600x">AMD Ryzen 5 7600X</option>
+            </optgroup>
+            <!-- AMD AM4 CPUs -->
+            <optgroup label="AMD AM4">
+              <option value="r9_5950x">AMD Ryzen 9 5950X</option>
+              <option value="r7_5800x3d">AMD Ryzen 7 5800X3D</option>
+            </optgroup>
+          </select>
+        </div>
 
-    <div class="component">
-        <h3>Mainboard</h3>
-        <select id="mainboard" onchange="checkCompatibility()">
+        <!-- Mainboard Auswahl (wird dynamisch gefiltert) -->
+        <div class="component-box" id="mainboard-box" style="display: none;">
+          <h3><i class="fas fa-microchip"></i> 2. Mainboard wählen</h3>
+          <select id="mainboard" onchange="filterRam()">
             <option value="">-- Wähle ein Mainboard --</option>
-            <option value="z790">ASUS Z790 (LGA 1700, ATX, DDR5)</option>
-            <option value="b650">MSI B650 (AM5, ATX, DDR5)</option>
-            <option value="z490">Gigabyte Z490 (LGA 1200, ATX, DDR4)</option>
-            <option value="b550">ASRock B550 (AM4, Micro-ATX, DDR4)</option>
-        </select>
+            <!-- Wird via JavaScript gefüllt -->
+          </select>
+        </div>
+
+        <!-- RAM Auswahl (wird dynamisch gefiltert) -->
+        <div class="component-box" id="ram-box" style="display: none;">
+          <h3><i class="fas fa-memory"></i> 3. RAM-Typ wählen</h3>
+          <select id="ram" onchange="updatePrice()">
+            <option value="">-- Wähle RAM-Typ --</option>
+            <!-- Wird via JavaScript gefüllt -->
+          </select>
+        </div>
+
+        <!-- GPU Auswahl -->
+        <div class="component-box">
+          <h3><i class="fas fa-gamepad"></i> Grafikkarte</h3>
+          <select id="gpu" onchange="updatePrice()">
+            <option value="">-- Wähle Grafikkarte --</option>
+            <optgroup label="NVIDIA">
+              <option value="rtx4060">NVIDIA RTX 4060</option>
+              <option value="rtx5060ti">NVIDIA RTX 5060Ti</option>
+              <option value="rtx5070ti">NVIDIA RTX 5070Ti</option>
+              <option value="rtx5080">NVIDIA RTX 5080</option>
+            </optgroup>
+            <optgroup label="AMD">
+              <option value="rx7600">AMD Radeon RX 7600</option>
+              <option value="rx7800xt">AMD RADEON RX 7800XT</option>
+              <option value="rx9070">AMD RADEON RX 9070</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- Storage Auswahl -->
+        <div class="component-box">
+          <h3><i class="fas fa-hdd"></i> Speicher</h3>
+          <select id="storage" onchange="updatePrice()">
+            <option value="">-- Wähle Speicher --</option>
+            <option value="1tb-wd">1TB WD Blue SN580 NVMe</option>
+            <option value="1tb-kingston">1TB Kingston KC3000 NVMe</option>
+            <option value="2tb-lexar">2TB Lexar NM790 NVMe</option>
+            <option value="1tb+2tb">1TB NVMe + 2TB SSD</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="config-summary">
+        <h3><i class="fas fa-file-invoice-dollar"></i> Zusammenfassung</h3>
+        <div id="config-output" style="margin-top: 1rem;">
+          <p>Bitte wähle deine Komponenten aus.</p>
+        </div>
+        <div id="result"></div>
+        <div class="total-price" id="total-price">0.00 CHF</div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+      <h2 class="section-title">Warum ELITE GAMING?</h2>
+      <p style="max-width: 800px; margin-bottom: 1.5rem; color: var(--gray); font-size: 0.95rem;">
+        Wir bieten nicht nur hochwertige Gaming PCs, sondern ein komplettes Premium-Erlebnis aus der Schweiz.
+      </p>
+      
+      <div class="features">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="feature-title">2 Jahre Garantie</h3>
+          <p style="color: var(--gray); font-size: 0.9rem;">
+            Alle unsere Systeme werden mit 2 Jahren Vollgarantie geliefert, inklusive Vor-Ort-Service in der ganzen Schweiz.
+          </p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3 class="feature-title">Individuelle Konfiguration</h3>
+          <p style="color: var(--gray); font-size: 0.9rem;">
+            Jeder PC wird nach deinen Wünschen zusammengestellt und vor der Auslieferung ausführlich getestet.
+          </p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3 class="feature-title">Kostenloser Versand</h3>
+          <p style="color: var(--gray); font-size: 0.9rem;">
+            Kostenfreier und versicherter Expressversand in die ganze Schweiz innerhalb von 1-3 Werktagen.
+          </p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="feature-title">Finanzierung möglich</h3>
+          <p style="color: var(--gray); font-size: 0.9rem;">
+            Flexible Ratenzahlung über 6-36 Monate möglich. 0% Finanzierung bei Zahlung innerhalb von 12 Monaten.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <h2 class="section-title">Das sagen unsere Kunden</h2>
+      
+      <div class="testimonial-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "Mein ELITE GAMING PC übertrifft alle Erwartungen! Der Kundenservice war hervorragend und die Lieferung blitzschnell. Absolute Empfehlung!"
+          </p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Markus B." class="author-avatar">
+            <div class="author-info">
+              <h4>Markus B.</h4>
+              <p>Zürich</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "Endlich ein Schweizer Anbieter, der echte Gaming-Power zu fairen Preisen bietet. Mein PC läuft seit Monaten einwandfrei."
+          </p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah K." class="author-avatar">
+            <div class="author-info">
+              <h4>Sarah K.</h4>
+              <p>Bern</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "Die individuelle Beratung und die Möglichkeit, den PC genau nach meinen Wünschen zu konfigurieren, haben mich überzeugt."
+          </p>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Thomas L." class="author-avatar">
+            <div class="author-info">
+              <h4>Thomas L.</h4>
+              <p>Genf</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-form" id="contact">
+      <h2 class="section-title">Kontakt</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Betreff</label>
+          <select id="subject">
+            <option value="support">Technischer Support</option>
+            <option value="sales">Verkaufsberatung</option>
+            <option value="other">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" required></textarea>
+        </div>
+        <button type="submit" class="cta-button" style="width: 100%; justify-content: center;">
+          <i class="fas fa-paper-plane"></i> Nachricht senden
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <a href="#" class="footer-logo">
+          <i class="fas fa-gamepad"></i>
+          ELITE GAMING
+        </a>
+        <p>Premium Gaming PCs aus der Schweiz. Hochwertige Komponenten, maßgeschneiderte Lösungen und exzellenter Service.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Links</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Startseite</a></li>
+          <li><a href="#pcs"><i class="fas fa-chevron-right"></i> Gaming PCs</a></li>
+          <li><a href="#configurator"><i class="fas fa-chevron-right"></i> Konfigurator</a></li>
+          <li><a href="#features"><i class="fas fa-chevron-right"></i> Vorteile</a></li>
+          <li><a href="#contact"><i class="fas fa-chevron-right"></i> Kontakt</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Service</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Garantie</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Versand</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Zahlungsarten</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> AGB</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h3>Kontakt</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Musterstraße 123, 8000 Zürich</p>
+        <p><i class="fas fa-phone-alt"></i> +41 44 123 45 67</p>
+        <p><i class="fas fa-envelope"></i> info@elitegaming.ch</p>
+        <p><i class="fas fa-clock"></i> Mo-Fr: 10:00-18:00 Uhr</p>
+      </div>
     </div>
-
-    <div class="component">
-        <h3>RAM</h3>
-        <select id="ram" onchange="checkCompatibility()">
-            <option value="">-- Wähle RAM --</option>
-            <option value="ddr5-32gb">32GB DDR5-6000</option>
-            <option value="ddr4-16gb">16GB DDR4-3200</option>
-        </select>
+    
+    <div class="copyright">
+      <p>&copy; 2023 ELITE GAMING SCHWEIZ. Alle Rechte vorbehalten.</p>
     </div>
+  </footer>
 
-    <div class="component">
-        <h3>Gehäuse</h3>
-        <select id="case" onchange="checkCompatibility()">
-            <option value="">-- Wähle ein Gehäuse --</option>
-            <option value="atx-mid">Corsair 4000D (ATX, 360mm Radiator)</option>
-            <option value="matx">Fractal Design Meshify C (Micro-ATX, 240mm Radiator)</option>
-        </select>
-    </div>
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('#mobileMenu .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
 
-    <div class="component">
-        <h3>Kühler</h3>
-        <select id="cooler" onchange="checkCompatibility()">
-            <option value="">-- Wähle einen Kühler --</option>
-            <option value="aio-360mm">Arctic Liquid Freezer II 360mm</option>
-            <option value="aio-240mm">NZXT Kraken X53 240mm</option>
-            <option value="air-cooler">Noctua NH-D15 (Luftkühler)</option>
-        </select>
-    </div>
+    // Datenbank aller Komponenten
+    const components = {
+      cpus: {
+        // Intel LGA1700
+        i9_14900k: { socket: "LGA1700", ram: "ddr5", price: 600 },
+        i7_14700k: { socket: "LGA1700", ram: "ddr5", price: 450 },
+        i5_13600k: { socket: "LGA1700", ram: "ddr5", price: 350 },
+        // Intel LGA1851
+        ultra9_285k: { socket: "LGA1851", ram: "ddr5", price: 700 },
+        ultra7_265k: { socket: "LGA1851", ram: "ddr5", price: 550 },
+        // AMD AM5
+        r9_7950x: { socket: "AM5", ram: "ddr5", price: 650 },
+        r7_7800x3d: { socket: "AM5", ram: "ddr5", price: 500 },
+        r5_7600x: { socket: "AM5", ram: "ddr5", price: 300 },
+        // AMD AM4
+        r9_5950x: { socket: "AM4", ram: "ddr4", price: 400 },
+        r7_5800x3d: { socket: "AM4", ram: "ddr4", price: 350 }
+      },
+      mainboards: [
+        // LGA1700 (Intel)
+        { id: "asus_z790_hero", name: "ASUS ROG Maximus Z790 Hero", socket: "LGA1700", ram: "ddr5", price: 450 },
+        { id: "msi_z790_meg", name: "MSI MEG Z790", socket: "LGA1700", ram: "ddr5", price: 400 },
+        { id: "gigabyte_z790_xtreme", name: "Gigabyte Z790 AORUS Xtreme", socket: "LGA1700", ram: "ddr5", price: 500 },
+        { id: "asus_b760_f", name: "ASUS ROG Strix B760-F Gaming", socket: "LGA1700", ram: "ddr5", price: 300 },
+        // LGA1851 (Intel)
+        { id: "asus_z890_e", name: "ASUS ROG Strix Z890-E Gaming", socket: "LGA1851", ram: "ddr5", price: 400 },
+        { id: "gigabyte_z890_eagle", name: "GIGABYTE Z890 Eagle WIFI7", socket: "LGA1851", ram: "ddr5", price: 350 },
+        // AM5 (AMD)
+        { id: "asus_x670e_hero", name: "ASUS ROG Crosshair X670E Hero", socket: "AM5", ram: "ddr5", price: 450 },
+        { id: "msi_x670e_carbon", name: "MSI MPG X670E Carbon", socket: "AM5", ram: "ddr5", price: 400 },
+        { id: "asus_b650_plus", name: "ASUS TUF Gaming B650-Plus", socket: "AM5", ram: "ddr5", price: 250 },
+        // AM4 (AMD)
+        { id: "asus_x570_dark", name: "ASUS ROG Crosshair VIII Dark Hero", socket: "AM4", ram: "ddr4", price: 350 },
+        { id: "msi_b550_tomahawk", name: "MSI B550 Tomahawk", socket: "AM4", ram: "ddr4", price: 200 }
+      ],
+      ram: {
+        "ddr4": [
+          { id: "16gb_ddr4", name: "16GB DDR4 3600MHz", price: 80 },
+          { id: "32gb_ddr4", name: "32GB DDR4 3600MHz", price: 120 }
+        ],
+        "ddr5": [
+          { id: "16gb_ddr5", name: "16GB DDR5 6000MHz", price: 100 },
+          { id: "32gb_ddr5", name: "32GB DDR5 6000MHz", price: 180 },
+          { id: "64gb_ddr5", name: "64GB DDR5 6000MHz", price: 350 }
+        ]
+      },
+      gpus: {
+        "rx7600": { name: "AMD Radeon RX 7600", price: 250 },
+        "rtx4060": { name: "NVIDIA RTX 4060", price: 300 },
+        "rtx5060ti": { name: "NVIDIA RTX 5060Ti", price: 450 },
+        "rx7800xt": { name: "AMD RADEON RX 7800XT", price: 500 },
+        "rx9070": { name: "AMD RADEON RX 9070", price: 650 },
+        "rtx5070ti": { name: "NVIDIA RTX 5070Ti", price: 700 },
+        "rtx5080": { name: "NVIDIA RTX 5080", price: 900 }
+      },
+      storage: {
+        "1tb-wd": { name: "1TB WD Blue SN580 NVMe", price: 80 },
+        "1tb-kingston": { name: "1TB Kingston KC3000 NVMe", price: 100 },
+        "2tb-lexar": { name: "2TB Lexar NM790 NVMe", price: 180 },
+        "1tb+2tb": { name: "1TB NVMe + 2TB SSD", price: 200 }
+      }
+    };
 
-    <div id="compatibility"></div>
+    // 1. Filtere Mainboards basierend auf CPU-Sockel
+    function filterMainboards() {
+      const cpuId = document.getElementById("cpu").value;
+      if (!cpuId) return;
 
-    <script>
-        // Datenbank mit Kompatibilitätsregeln
-        const components = {
-            cpu: {
-                "i9-13900k": { socket: "LGA 1700", ram: "DDR5" },
-                "r7-7800x3d": { socket: "AM5", ram: "DDR5" },
-                "i7-10700k": { socket: "LGA 1200", ram: "DDR4" },
-                "r5-5600x": { socket: "AM4", ram: "DDR4" }
-            },
-            mainboard: {
-                "z790": { socket: "LGA 1700", formfactor: "ATX", ram: "DDR5" },
-                "b650": { socket: "AM5", formfactor: "ATX", ram: "DDR5" },
-                "z490": { socket: "LGA 1200", formfactor: "ATX", ram: "DDR4" },
-                "b550": { socket: "AM4", formfactor: "Micro-ATX", ram: "DDR4" }
-            },
-            ram: {
-                "ddr5-32gb": { type: "DDR5" },
-                "ddr4-16gb": { type: "DDR4" }
-            },
-            case: {
-                "atx-mid": { formfactor: "ATX", radiator: "360mm" },
-                "matx": { formfactor: "Micro-ATX", radiator: "240mm" }
-            },
-            cooler: {
-                "aio-360mm": { type: "AIO", radiator: "360mm", sockets: ["LGA 1700", "AM5"] },
-                "aio-240mm": { type: "AIO", radiator: "240mm", sockets: ["LGA 1700", "AM5", "LGA 1200", "AM4"] },
-                "air-cooler": { type: "Air", sockets: ["LGA 1700", "AM5", "LGA 1200", "AM4"] }
-            }
-        };
+      const cpu = components.cpus[cpuId];
+      const mainboardSelect = document.getElementById("mainboard");
+      mainboardSelect.innerHTML = '<option value="">-- Wähle ein Mainboard --</option>';
 
-        function checkCompatibility() {
-            const cpu = document.getElementById("cpu").value;
-            const mainboard = document.getElementById("mainboard").value;
-            const ram = document.getElementById("ram").value;
-            const case_ = document.getElementById("case").value;
-            const cooler = document.getElementById("cooler").value;
-
-            let errors = [];
-
-            // CPU + Mainboard (Sockel)
-            if (cpu && mainboard && components.cpu[cpu].socket !== components.mainboard[mainboard].socket) {
-                errors.push(`❌ CPU (${components.cpu[cpu].socket}) und Mainboard (${components.mainboard[mainboard].socket}) sind nicht kompatibel!`);
-            }
-
-            // RAM + Mainboard (DDR-Typ)
-            if (ram && mainboard && components.ram[ram].type !== components.mainboard[mainboard].ram) {
-                errors.push(`❌ RAM (${components.ram[ram].type}) und Mainboard (${components.mainboard[mainboard].ram}) sind nicht kompatibel!`);
-            }
-
-            // Mainboard + Gehäuse (Formfaktor)
-            if (mainboard && case_ && components.mainboard[mainboard].formfactor !== components.case[case_].formfactor) {
-                if (components.mainboard[mainboard].formfactor === "Micro-ATX" && components.case[case_].formfactor === "ATX") {
-                    // Micro-ATX passt in ATX-Gehäuse
-                } else {
-                    errors.push(`❌ Mainboard (${components.mainboard[mainboard].formfactor}) passt nicht ins Gehäuse (${components.case[case_].formfactor})!`);
-                }
-            }
-
-            // Kühler + CPU (Sockel)
-            if (cooler && cpu && !components.cooler[cooler].sockets.includes(components.cpu[cpu].socket)) {
-                errors.push(`❌ Kühler unterstützt nicht den CPU-Sockel (${components.cpu[cpu].socket})!`);
-            }
-
-            // Kühler + Gehäuse (Radiator-Größe)
-            if (cooler && case_ && components.cooler[cooler].type === "AIO" && 
-                components.cooler[cooler].radiator > components.case[case_].radiator) {
-                errors.push(`❌ Radiator (${components.cooler[cooler].radiator}) passt nicht ins Gehäuse (max. ${components.case[case_].radiator})!`);
-            }
-
-            // Ausgabe
-            const output = document.getElementById("compatibility");
-            if (errors.length > 0) {
-                output.innerHTML = "<h3>⚠️ Kompatibilitätsprobleme:</h3><ul>" + errors.map(e => `<li>${e}</li>`).join("") + "</ul>";
-                output.className = "error";
-            } else if (cpu || mainboard || ram || case_ || cooler) {
-                output.innerHTML = "<h3>✅ Alles kompatibel!</h3>";
-                output.className = "success";
-            } else {
-                output.innerHTML = "";
-                output.className = "";
-            }
+      // Zeige nur Mainboards mit passendem Sockel an
+      components.mainboards.forEach(mb => {
+        if (mb.socket === cpu.socket) {
+          const option = document.createElement("option");
+          option.value = mb.id;
+          option.textContent = mb.name;
+          mainboardSelect.appendChild(option);
         }
-    </script>
+      });
+
+      // Zeige Mainboard-Auswahl an
+      document.getElementById("mainboard-box").style.display = "block";
+      document.getElementById("ram-box").style.display = "none";
+      document.getElementById("result").innerHTML = "";
+      
+      // Update Preis
+      updatePrice();
+    }
+
+    // 2. Filtere RAM basierend auf Mainboard
+    function filterRam() {
+      const mainboardId = document.getElementById("mainboard").value;
+      if (!mainboardId) return;
+
+      const mainboard = components.mainboards.find(mb => mb.id === mainboardId);
+      const ramSelect = document.getElementById("ram");
+      ramSelect.innerHTML = '<option value="">-- Wähle RAM-Typ --</option>';
+
+      // Füge unterstützten RAM-Typ hinzu
+      components.ram[mainboard.ram].forEach(ram => {
+        const option = document.createElement("option");
+        option.value = ram.id;
+        option.textContent = ram.name;
+        ramSelect.appendChild(option);
+      });
+
+      // Zeige RAM-Auswahl an
+      document.getElementById("ram-box").style.display = "block";
+      
+      // Update Preis
+      updatePrice();
+    }
+
+    // 3. Update Preis und Zusammenfassung
+    function updatePrice() {
+      const cpuId = document.getElementById("cpu").value;
+      const mainboardId = document.getElementById("mainboard").value;
+      const ramId = document.getElementById("ram").value;
+      const gpuId = document.getElementById("gpu").value;
+      const storageId = document.getElementById("storage").value;
+      
+      let price = 0;
+      let configText = '';
+      const resultDiv = document.getElementById("result");
+      
+      // Basispreis für Gehäuse, Netzteil, Kühlung etc.
+      const basePrice = 300;
+      
+      // CPU
+      if (cpuId) {
+        const cpu = components.cpus[cpuId];
+        price += cpu.price;
+        configText += `<p><strong>Prozessor:</strong> ${document.getElementById("cpu").options[document.getElementById("cpu").selectedIndex].text}</p>`;
+      }
+      
+      // Mainboard
+      if (mainboardId) {
+        const mb = components.mainboards.find(mb => mb.id === mainboardId);
+        price += mb.price;
+        configText += `<p><strong>Mainboard:</strong> ${mb.name}</p>`;
+      }
+      
+      // RAM
+      if (ramId) {
+        let ramPrice = 0;
+        let ramName = '';
+        
+        // Durchsuche alle RAM-Typen nach der ausgewählten ID
+        for (const type in components.ram) {
+          const foundRam = components.ram[type].find(ram => ram.id === ramId);
+          if (foundRam) {
+            ramPrice = foundRam.price;
+            ramName = foundRam.name;
+            break;
+          }
+        }
+        
+        price += ramPrice;
+        configText += `<p><strong>RAM:</strong> ${ramName}</p>`;
+      }
+      
+      // GPU
+      if (gpuId) {
+        const gpu = components.gpus[gpuId];
+        price += gpu.price;
+        configText += `<p><strong>Grafikkarte:</strong> ${gpu.name}</p>`;
+      }
+      
+      // Storage
+      if (storageId) {
+        const storage = components.storage[storageId];
+        price += storage.price;
+        configText += `<p><strong>Speicher:</strong> ${storage.name}</p>`;
+      }
+      
+      // Gesamtpreis anzeigen
+      if (price > 0) {
+        price += basePrice;
+        document.getElementById("config-output").innerHTML = configText;
+        document.getElementById("total-price").textContent = price.toLocaleString('de-CH') + '.00 CHF';
+        
+        // Kompatibilitätsprüfung
+        checkCompatibility();
+      } else {
+        document.getElementById("config-output").innerHTML = '<p>Bitte wähle deine Komponenten aus.</p>';
+        document.getElementById("total-price").textContent = '0.00 CHF';
+        resultDiv.innerHTML = '';
+        resultDiv.className = '';
+      }
+    }
+
+    // 4. Prüfe Kompatibilität (finale Validierung)
+    function checkCompatibility() {
+      const cpuId = document.getElementById("cpu").value;
+      const mainboardId = document.getElementById("mainboard").value;
+      const ramId = document.getElementById("ram").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!cpuId || !mainboardId || !ramId) {
+        return; // Nicht alle notwendigen Komponenten ausgewählt
+      }
+
+      const cpu = components.cpus[cpuId];
+      const mainboard = components.mainboards.find(mb => mb.id === mainboardId);
+      
+      // RAM-Typ des ausgewählten RAMs finden
+      let ramType = '';
+      for (const type in components.ram) {
+        if (components.ram[type].some(ram => ram.id === ramId)) {
+          ramType = type;
+          break;
+        }
+      }
+
+      // Alles sollte bereits durch die Filterung kompatibel sein, aber zur Sicherheit:
+      if (cpu.socket === mainboard.socket && mainboard.ram === ramType) {
+        resultDiv.className = "compatible";
+        resultDiv.innerHTML = "✅ <strong>Kompatibel!</strong> Alle Komponenten passen perfekt zusammen.";
+      } else {
+        resultDiv.className = "incompatible";
+        resultDiv.innerHTML = "⚠ <strong>Warnung!</strong> Nicht alle Komponenten sind optimal aufeinander abgestimmt.";
+      }
+    }
+  </script>
 </body>
 </html>
